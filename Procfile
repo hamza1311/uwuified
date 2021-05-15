@@ -1,1 +1,1 @@
-web: ROCKET_PORT=$PORT ./target/release/uwuified
+web: ./target/release/uwuified

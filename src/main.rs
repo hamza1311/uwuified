@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate rocket;
 use rocket::figment::Figment;
+use std::net::IpAddr;
 
 #[get("/")]
 fn index() -> &'static str {

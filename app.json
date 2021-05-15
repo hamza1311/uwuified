@@ -1,0 +1,11 @@
+{
+  "name": "uwuified",
+  "description": "uwu",
+  "repository": ",https://github.com/hamza1311/uwuified",
+  "success_url": "/",
+  "keywords": ["rust", "rocket", "uwu"],
+  "website": "https://github.com/hamza1311/uwuified",
+  "env": {
+    "BUILDPACK_URL": "https://github.com/emk/heroku-buildpack-rust.git"
+  }
+}

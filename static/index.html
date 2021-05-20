@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <style>
+        :root {
+            --box-shadow: 0 20px 25px 10px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+        }
+
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        body {
+            background: darkgray;
+            font-size: 16px;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.77);
+            color: wheat;
+            padding: 2em 4em;
+        }
+
+        .heading-container {
+            background-color: rgba(0, 0, 0, 0.77);
+            color: wheat;
+
+            display: grid;
+            grid-template-columns: 1fr 7fr;
+            grid-template-areas: "neko heading";
+            gap: 2em;
+            padding: 2em 8em 4em 8em;
+            align-items: center;
+        }
+
+        img {
+            height: 22em;
+            border-radius: 1em;
+            box-shadow: var(--box-shadow);
+
+        }
+
+        .heading {
+            display: flex;
+            gap: 2em;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .heading h2 {
+            font-size: 3em;
+        }
+
+        .heading p {
+            font-size: 2em;
+        }
+
+        .uwu-container-outer {
+            background-color: rgba(0, 0, 0, 0.44);
+            padding: 2em 6em 4em 6em;
+            width: 100%;
+        }
+
+        .uwu-container {
+            display: flex;
+            box-shadow: var(--box-shadow);
+        }
+
+        .uwu-container .input {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            background: orange;
+        }
+
+        .uwu-container .input textarea {
+            background: orange;
+            height: 40em;
+            border: none;
+            padding: 1.5em;
+            font-size: 1em;
+            font-family: revert;
+        }
+
+        .uwu-container .output {
+            width: 60%;
+            background-color: aqua;
+            padding: 0 1.5em 1.5em;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #uwufied-text {
+            padding-top: 1.5em;
+            font-size: 1.2em;
+        }
+
+        .output-action-buttons {
+            margin-top: auto;
+            display: flex;
+            gap: 1em;
+            align-self: flex-end;
+
+            width: 100%;
+            justify-content: flex-end;
+
+            background-color: rgba(0, 0, 0, 0.60);
+            padding: 0.5em;
+            border-radius: 0.5em;
+            box-shadow: var(--box-shadow);
+        }
+
+        .label {
+            padding: 0.5em;
+            text-align: center;
+            text-decoration: underline black 0.1em;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+    </style>
+
+    <script>
+        function debounce(func, timeout){
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => { func.apply(this, args); }, timeout);
+            };
+        }
+
+        function saveInput() {
+            const input = document.getElementById("text-input").value
+            fetch(`/api/uwu?q=${input}`)
+                .then(it => it.text())
+                .then(uwu => {
+                    document.getElementById("uwufied-text").textContent = uwu
+                })
+        }
+        const processChange = debounce(saveInput, 1000)
+    </script>
+</head>
+<body>
+<nav>
+    <h1>uwuifed</h1>
+
+</nav>
+<section class="heading-container">
+    <img style="grid-area: neko" src="https://cdn.nekos.life/lewd/lewd_neko_190.jpeg"/>
+    <section class="heading" style="grid-area: heading">
+        <h2>Embrace the uwu</h2>
+        <p>uwuify your text using the fastest text uwuifier in the west</p>
+    </section>
+</section>
+
+<section class="uwu-container-outer">
+    <section class="uwu-container">
+        <section class="input">
+            <label for="text-input" class="label">Input</label>
+            <textarea id="text-input" onkeyup="processChange()" placeholder="text to uwuify"></textarea>
+        </section>
+        <section class="output">
+            <span class="label">Output</span>
+            <p id="uwufied-text">
+                uwu shows here
+            </p>
+            <!--<section class="output-action-buttons">
+                <button>fuck</button>
+                <button>fuck</button>
+            </section>-->
+        </section>
+
+    </section>
+</section>
+</body>
+</html>

@@ -2,10 +2,17 @@
 extern crate rocket;
 use rocket::figment::Figment;
 use std::net::IpAddr;
+use rocket::response::NamedFile;
+use std::io;
+
+#[get("/uwu?<q>")]
+pub fn uwuify(q: &str) -> String {
+    uwuifier::uwuify_str_sse(q)
+}
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+pub async fn index() -> Result<NamedFile, io::Error> {
+    NamedFile::open("static/index.html").await
 }
 
 #[launch]
@@ -27,5 +34,7 @@ fn rocket() -> _ {
                 .parse::<IpAddr>()
                 .expect("invalid host supplied"),
         ));
-    rocket::custom(figment).mount("/", routes![index])
+    rocket::custom(figment)
+        .mount("/", routes![index])
+        .mount("/api", routes![uwuify])
 }

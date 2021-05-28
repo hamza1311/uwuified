@@ -1,9 +1,9 @@
 #[macro_use]
 extern crate rocket;
 use rocket::figment::Figment;
-use std::net::IpAddr;
 use rocket::response::NamedFile;
 use std::io;
+use std::net::IpAddr;
 
 #[get("/uwu?<q>")]
 pub fn uwuify(q: &str) -> String {

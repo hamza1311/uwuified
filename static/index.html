@@ -5,10 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
     <title>Test</title>
     <style>
         :root {
             --box-shadow: 0 20px 25px 10px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+            --text-color: rgb(215, 215, 215);
         }
 
         * {
@@ -24,13 +26,13 @@
 
         nav {
             background-color: rgba(0, 0, 0, 0.77);
-            color: wheat;
+            color: var(--text-color);
             padding: 2em 4em;
         }
 
         .heading-container {
             background-color: rgba(0, 0, 0, 0.77);
-            color: wheat;
+            color: var(--text-color);
 
             display: grid;
             grid-template-columns: 1fr 7fr;
@@ -113,7 +115,7 @@
             justify-content: flex-end;
 
             background-color: rgba(0, 0, 0, 0.60);
-            padding: 0.5em;
+            padding: 0.5em 1.5em;
             border-radius: 0.5em;
             box-shadow: var(--box-shadow);
         }
@@ -124,6 +126,32 @@
             text-decoration: underline black 0.1em;
             font-size: 1.2em;
             font-weight: 500;
+        }
+
+        .icon-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 12em;
+            height: 3em;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 1em;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+        }
+
+        #toast-text {
+            color: var(--text-color);
         }
     </style>
 
@@ -145,6 +173,16 @@
                 })
         }
         const processChange = debounce(saveInput, 1000)
+
+        const share = async () => {
+            const uwu = document.getElementById("uwufied-text").textContent;
+            await navigator.clipboard.writeText(uwu);
+            document.getElementById("toast").style.visibility = "visible";
+            document.getElementById("toast-text").textContent = "Copied uwu to clipboard";
+            setTimeout(() => {
+                document.getElementById("toast").style.visibility = ""
+            }, 3000)
+        }
     </script>
 </head>
 <body>
@@ -171,13 +209,15 @@
             <p id="uwufied-text">
                 uwu shows here
             </p>
-            <!--<section class="output-action-buttons">
-                <button>fuck</button>
-                <button>fuck</button>
-            </section>-->
+            <section class="output-action-buttons">
+                <button class="material-icons icon-button" onclick="share()">share</button>
+            </section>
         </section>
-
     </section>
+</section>
+
+<section id="toast">
+    <p id="toast-text">This is some text</p>
 </section>
 </body>
 </html>
